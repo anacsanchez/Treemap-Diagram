@@ -16,3 +16,9 @@ body {
 text {
   text-align: center;
 }
+
+#tooltip {
+  position: absolute;
+  width: 100;
+  height: 50;
+}
