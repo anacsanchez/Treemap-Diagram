@@ -46,10 +46,17 @@ function createTreemap(data) {
                   .enter()
                   .append("g")
                   .attr("transform", d => `translate(${d.x0},${d.y0})`)
-                  .on("mouseover", function(d) {
+                  .on("mousemove", function(d) {
+                    console.log(d3.mouse(this))
                     tooltip.style("opacity", "1")
                             .attr("data-value", d.data.value)
-                            .html(`${d.data.value}`)
+                            .html(`${d.data.name} <br />
+                            Platform: ${d.data.category} <br />
+                            Value: ${d.data.value}
+
+                            `)
+                            .style("top", `${d.y0 + d3.mouse(this)[1] + 10}px`)
+                            .style("left", `${d.x0 + d3.mouse(this)[0]}px`)
                   })
                   .on("mouseout", function(d) {
                     tooltip.style("opacity", "0")
@@ -73,21 +80,21 @@ function createTreemap(data) {
       .attr("font-size", ".75em")
       .attr("x", 0)
       .attr("y", 20)
-      .attr("width", 5)
 
   const legendItems = legend.selectAll("g")
         .data(root.children.map(d => d.data.name))
         .enter()
         .append("g")
 
-        legendItems.append("rect")
-        .attr("class", "legend-item")
-        .attr("height", 20)
-        .attr("width", 20)
-        .attr("fill", d => colorScale(d))
-        .attr("x", (d,i) => i * 50)
-        .attr("y", 0)
-        .attr("stroke", "black")
+  legendItems.append("rect")
+              .attr("class", "legend-item")
+              .attr("height", 20)
+              .attr("width", 20)
+              .attr("fill", d => colorScale(d))
+              .attr("x", (d,i) => i * 50)
+              .attr("y", 0)
+              .attr("stroke", "black")
+
   legendItems.append("text")
               .attr("x", (d,i) => i * 50)
               .attr("y", 50)
