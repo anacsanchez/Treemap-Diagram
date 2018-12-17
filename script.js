@@ -47,7 +47,6 @@ function createTreemap(data) {
                   .append("g")
                   .attr("transform", d => `translate(${d.x0},${d.y0})`)
                   .on("mousemove", function(d) {
-                    console.log(d3.mouse(this))
                     tooltip.style("opacity", "1")
                             .attr("data-value", d.data.value)
                             .html(`${d.data.name} <br />
