@@ -1,0 +1,18 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#title {
+  text-align: center;
+  font-size: 1.3em;
+  padding: .5em;
+}
+
+#description {
+  text-align: center;
+  font-size: 1em;
+}
+
+text {
+  text-align: center;
+}
