@@ -1,10 +1,14 @@
 d3.json("https://cdn.rawgit.com/freeCodeCamp/testable-projects-fcc/a80ce8f9/src/data/tree_map/video-game-sales-data.json")
   .then(data => createTreemap(data))
 
-const width = 1000;
-const height = 800;
-const padding = 80;
+const divWidth = 1000;
+const divHeight = 600;
+const padding = 60;
+const width = divWidth - (padding*2);
+const height = divHeight - (padding*2);
 
+d3.select("#treemap")
+  .style("width", `${divWidth}px`)
 
 const title = d3.select("#treemap")
                 .append("div")
@@ -21,16 +25,18 @@ function createTreemap(data) {
                     .append("svg")
                     .attr("width", width)
                     .attr("height", height)
+
   const legend = d3.select("#treemap")
                     .append("svg")
                     .attr("width", width)
                     .attr("height", height)
                     .attr("id", "legend")
 
-  const tooltip = d3.select("body")
+  const tooltip = d3.select("#treemap")
                     .append("div")
                     .attr("id", "tooltip")
                     .style("opacity", "0")
+
   const root = d3.hierarchy(data)
 
   root.sum(d => d.value)
@@ -38,13 +44,13 @@ function createTreemap(data) {
 
   const treemap = d3.treemap()
                     .size([width, height])
-                    // .paddingOuter(5)
 
   treemap(root);
   const map = treemapSvg.selectAll("g")
                   .data(root.leaves())
                   .enter()
                   .append("g")
+                  .attr("width", d => d.x1 - d.x0)
                   .attr("transform", d => `translate(${d.x0},${d.y0})`)
                   .on("mousemove", function(d) {
                     tooltip.style("opacity", "1")
@@ -77,8 +83,8 @@ function createTreemap(data) {
   map.append("text")
       .text(d => d.data.name)
       .attr("font-size", ".75em")
-      .attr("x", 0)
-      .attr("y", 20)
+      .attr("x", 20)
+      .attr("y", 0)
 
   const legendItems = legend.selectAll("g")
         .data(root.children.map(d => d.data.name))
