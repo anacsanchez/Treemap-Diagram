@@ -83,8 +83,8 @@ function createTreemap(data) {
   map.append("text")
       .text(d => d.data.name)
       .attr("font-size", ".75em")
-      .attr("x", 20)
-      .attr("y", 0)
+      .attr("x", 0)
+      .attr("y", 20)
 
   const legendItems = legend.selectAll("g")
         .data(root.children.map(d => d.data.name))
